@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Elements</title>
+</head>
+<body>
+    <h1>Filter The Elements: </h1>
+    <input type="text" id="filterInput" placeholder="Filter">
+    <ul id="list">
+        <li>Bleach</li>
+        <li>Naruto</li>
+        <li>OnePiece</li>
+        <li>Kaisen</li>
+        <li>Parasyte</li>
+        <li>Monsuno</li>
+    </ul>
+
+    <script>
+        const filterInput = document.getElementById('filterInput')
+        const list = document.getElementById('list')
+        const items = document.getElementsByTagName('li')
+
+        filterInput.addEventListener("keyup", function(){
+            const filter = filterInput.value.toLowerCase()
+
+            for(let i=0;i<=items.length;i++){
+                const item = items[i]
+                const text = item.textContent.toLowerCase()
+
+                if(text.includes(filter)){
+                    item.style.display = "block"
+                } else{
+                    item.style.display = "none"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Append Method</title>
+  </head>
+  <body>
+    <ul id="myList">
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ul>
+    <button id="takeFlight">Add Up</button>
+
+    <script>
+      const list = document.getElementById("myList");
+      const flight = document.getElementById("takeFlight");
+
+      flight.addEventListener("click", function () {
+        const newItem = document.createElement("li");
+        newItem.textContent = "Item3";
+        list.appendChild(newItem);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table Generation</title>
+  <style>
+    .saved-table{
+      float: right;
+      margin: 13px;
+    }
+
+    .saved-table td input{
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Let's Make Table: </h1>
+  <button id="generateButton">Generate Table</button>
+  <button id="saveButton">Save Table</button>
+  <div id="tableContainer"></div>
+  <div id="saveTable"></div>
+
+  <script>
+    const button = document.getElementById('generateButton')
+    const container = document.getElementById('tableContainer')
+    const save = document.getElementById('saveButton')
+    const savedTable = document.getElementById('saveTable')
+    let table;
+
+    const savedTableData = localStorage.getItem('savedTables')
+    if(savedTableData){
+      savedTable.innerHTML = savedTableData;
+      table = savedTable.querySelector("table")
+    }
+
+    button.addEventListener("click", function(){
+      const numRows = parseInt(prompt("Enter Your Desire Row: "))
+      const numCells = parseInt(prompt("Enter Your Desire Cell per Row: "))
+
+      if(isNaN(numRows) || isNaN(numCells) || numRows <= 0 || numCells <= 0){
+        alert("Invalid Input. Please enter positive number precisely")
+        return;
+      }
+
+      table = document.createElement('table')
+
+      for(let i=1; i<=numRows;i++){
+        const rows = document.createElement('tr')
+        for(let j=1; j<= numCells; j++){
+          const cells = document.createElement('td')
+          const input = document.createElement('input')
+          cells.appendChild(input)
+          rows.appendChild(cells)
+        }
+        table.appendChild(rows)
+      }
+      container.innerHTML = ''
+      container.appendChild(table)
+    })
+
+    save.addEventListener("click", function(){
+      if(table){
+        savedTable.innerHTML = ''
+        const clonedTable = table.cloneNode(true)
+        clonedTable.classList.add('saved-table')
+        clonedTable.querySelectorAll('input').forEach(input => {
+          input.readOnly = true
+        });
+
+        savedTable.appendChild(clonedTable)
+
+        localStorage.setItem("savedTables", savedTable.innerHTML )
+      }
+      else{
+        alert("No table to be found. First generate your table")
+      }
+    })
+  </script>
+</body>
+</html>
